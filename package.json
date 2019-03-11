@@ -1,0 +1,25 @@
+{
+    "name": "@jf/tests",
+    "description": "OOP tests system",
+    "version": "0.0.1",
+    "author": "Joaquín Fernández <dev@joaquinfernandez.net>",
+    "license": "MIT",
+    "main": "index.js",
+    "homepage": "https://github.com/joaquinfq/jfTests#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/joaquinfq/jfTests.git"
+    },
+    "bugs": {
+        "url": "https://github.com/joaquinfq/jfTests/issues"
+    },
+    "devDependencies": {
+        "istanbul": "^0.4.5"
+    },
+    "scripts": {
+        "test": "istanbul cover --include-all-sources --root src --print both --report html -x test.js test.js"
+    },
+    "dependencies": {
+        "chalk": "^2.4.2"
+    }
+}
