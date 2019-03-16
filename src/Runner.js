@@ -1,5 +1,5 @@
 const chalk           = require('chalk');
-const jfFileSystem    = require('jf-file-system');
+const jfFileSystem    = require('@jf/fs');
 const jfTestsTypeUnit = require('./type/Unit');
 const path            = require('path');
 
