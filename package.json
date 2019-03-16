@@ -13,13 +13,11 @@
     "bugs": {
         "url": "https://github.com/joaquinfq/jfTests/issues"
     },
-    "devDependencies": {
-        "istanbul": "^0.4.5"
-    },
     "scripts": {
-        "test": "istanbul cover --include-all-sources --root src --print both --report html -x test.js test.js"
+        "postinstall": "node ./scripts/postinstall"
     },
     "dependencies": {
-        "chalk": "^2.4.2"
+        "chalk": "^2.4.2",
+        "jf-file-system": "^2.0.3"
     }
 }
