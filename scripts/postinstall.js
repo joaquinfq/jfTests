@@ -12,9 +12,18 @@ if (fs.existsSync(pkgfile))
             if (!scripts.test)
             {
                 const devdep = pkg.devDependencies || {};
-                scripts.test = devdep.istanbul
-                    ? 'istanbul cover --include-all-sources --print both --report html --root src node_modules/@jf/tests/src/Runner.js'
-                    : 'node node_modules/@jf/tests/src/Runner.js';
+                if (devdep.istanbul)
+                {
+                    scripts.test = 'istanbul cover --include-all-sources --print both --report html --root src jf-tests';
+                }
+                else if (devdep.nyc)
+                {
+                    scripts.test = 'nyc --reporter=text --all --include=src/** jf-tests';
+                }
+                else
+                {
+                    scripts.test = 'jf-tests';
+                }
                 fs.writeFileSync(pkgfile, JSON.stringify(pkg, null, 4));
                 console.log('%s\nscripts\n    test\n        %s\n', pkgfile, scripts.test);
             }

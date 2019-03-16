@@ -9,7 +9,7 @@ const path            = require('path');
  * @namespace jf.tests
  * @class     jf.tests.Runner
  */
-class jfTestsRunner extends jfFileSystem
+module.exports = class jfTestsRunner extends jfFileSystem
 {
     /**
      * @override
@@ -174,7 +174,4 @@ Aserciones KO      : %s\n`,
             console.log('El directorio %s no existe', chalk.cyan(_testsDir));
         }
     }
-}
-
-jfTestsRunner.i().run();
-module.exports = jfTestsRunner;
+};
