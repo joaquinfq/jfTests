@@ -1,0 +1,33 @@
+const {{name}}    = require('..{{{infile}}}');
+const jfTestsUnit = require('@jf/tests/src/type/Unit');
+
+/**
+ * Pruebas unitarias de la clase `{{title}}`.
+ */
+module.exports = class {{name}}Test extends jfTestsUnit
+{
+    /**
+     * @override
+     */
+    static get title()
+    {
+        return '{{title}}';
+    }
+
+    /**
+     * @override
+     */
+    setUp()
+    {
+        this.sut = new {{name}}();
+    }
+{{#methods}}
+
+    /**
+     * Pruebas del método{{#static}} estático{{/static}} `{{method}}`.
+     */
+    {{test}}()
+    {
+    }
+{{/methods}}
+};

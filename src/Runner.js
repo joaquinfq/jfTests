@@ -32,7 +32,9 @@ module.exports = class jfTestsRunner extends jfFileSystem
     loadFromDirectory(directory)
     {
         const _classes = [];
-        this.scandir(directory).forEach(
+        this.scandir(directory)
+            .filter(filename => /\.m?js$/i.test(filename))
+            .forEach(
             filename =>
             {
                 const _class = require(filename);

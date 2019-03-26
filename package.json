@@ -1,7 +1,7 @@
 {
     "name": "@jf/tests",
     "description": "OOP tests system",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "author": "Joaquín Fernández <dev@joaquinfernandez.net>",
     "license": "MIT",
     "main": "index.js",
@@ -20,7 +20,11 @@
         "postinstall": "node ./scripts/postinstall"
     },
     "dependencies": {
-        "@jf/fs": "^3.0.0",
+        "@jf/fs": "^3.0.1",
         "chalk": "^2.4.2"
+    },
+    "devDependencies": {
+        "babylon": "^6.18.0",
+        "mustache": "^3.0.1"
     }
 }
