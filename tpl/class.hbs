@@ -21,6 +21,32 @@ module.exports = class {{name}}Test extends jfTestsUnit
     {
         this.sut = new {{name}}();
     }
+
+    /**
+     * Comprueba la definición de la clase.
+     */
+    testDefinition()
+    {
+        this._testDefinition(
+            {{name}},
+            {
+                // Propiedades estáticas
+            },
+            {
+                // Propiedades de instancia.
+            }
+        );
+    }
+{{#super}}
+
+    /**
+     * Comprueba la herencia de la clase.
+     */
+    testInheritance()
+    {
+        this._testInheritance({{name}}, {{super}}, null);
+    }
+{{/super}}
 {{#methods}}
 
     /**
@@ -28,6 +54,9 @@ module.exports = class {{name}}Test extends jfTestsUnit
      */
     {{test}}()
     {
+{{^static}}
+        const _sut = this.sut;
+{{/static}}
     }
 {{/methods}}
 };

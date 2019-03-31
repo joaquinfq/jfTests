@@ -56,6 +56,7 @@ if (filenames.length)
                         dir     : _dir,
                         infile  : _file,
                         name    : _Class.name,
+                        super   : _Class.__proto__.name,
                         title   : _class ? _class[1] : _file,
                         methods : _methods
                     };
