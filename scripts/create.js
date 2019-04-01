@@ -52,18 +52,41 @@ if (filenames.length)
                     const _class   = _content.match(/@class\s+(\S+)/s);
                     const _dir     = jffs.findUp(filename, 'package.json');
                     const _file    = filename.replace(_dir, '');
+                    const _outfile = path.join(_dir, _file.replace(/^\/src\//, 'tests/'));
+                    const _outdir  = path.dirname(_outfile);
                     const _config  = {
                         dir     : _dir,
-                        infile  : _file,
+                        infile  : path.relative(_outdir, filename).replace(new RegExp('\\' + path.extname(filename) + '$'), ''),
                         name    : _Class.name,
-                        super   : _Class.__proto__.name,
                         title   : _class ? _class[1] : _file,
                         methods : _methods
                     };
-                    jffs.write(
-                        path.join(_dir, _file.replace(/^\/src\//, 'tests/')),
-                        Mustache.render(tpl, _config)
-                    );
+                    const _super   = _Class.__proto__.name;
+                    if (_super)
+                    {
+                        _config.super = _super;
+                        const _match  = _content.match(new RegExp(`${_super}\\s+=\\s+require\\(['"](.+?)['"]\\)`));
+                        if (_match)
+                        {
+                            const _require  = _match[1];
+                            _config.insuper = path.relative(
+                                _outdir,
+                                path.resolve(
+                                    path.dirname(filename),
+                                    ..._require.replace(new RegExp('\\' + path.extname(_require) + '$'), '').split('/')
+                                )
+                            );
+                        }
+                    }
+                    const _code = Mustache.render(tpl, _config);
+                    if (jffs.exists(_outfile))
+                    {
+                        console.log('El archivo %s existe!!!\n%s\n', chalk.cyan(_outfile), _code);
+                    }
+                    else
+                    {
+                        jffs.write(_outfile, _code);
+                    }
                 }
                 else
                 {

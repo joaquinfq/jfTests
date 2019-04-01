@@ -1,4 +1,7 @@
-const {{name}}    = require('..{{{infile}}}');
+{{#super}}
+const {{super}} = require('{{{insuper}}}');
+{{/super}}
+const {{name}} = require('{{{infile}}}');
 const jfTestsUnit = require('@jf/tests/src/type/Unit');
 
 /**

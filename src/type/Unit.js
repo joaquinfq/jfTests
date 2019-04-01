@@ -1,4 +1,5 @@
 const assert = require('assert').strict;
+const sleep  = require('util').promisify(setTimeout);
 /**
  * Clase base para las pruebas unitarias a realizar.
  *
@@ -207,6 +208,18 @@ module.exports = class jfTestsUnit
     }
 
     /**
+     * Permite esperar en una prueba un tiempo en milisegundos.
+     *
+     * @param {number} ms Tiempo de espera en milisegundos.
+     *
+     * @return {Promise<void>} Promesa para realizar la espera.
+     */
+    async sleep(ms = 100)
+    {
+        return sleep(ms);
+    }
+
+    /**
      * Método que se llama al finalizar cada prueba de la clase.
      */
     tearDown()
@@ -361,11 +374,19 @@ module.exports = class jfTestsUnit
      */
     static getTests()
     {
-        const _proto = this.prototype;
-        return Object.getOwnPropertyNames(_proto)
-            .filter(
-                name => name.startsWith('test') && typeof _proto[name] === 'function'
+        let _proto = this.prototype;
+        const _items = [];
+        while (_proto)
+        {
+            _items.push(
+                ...Object.getOwnPropertyNames(_proto).filter(
+                    name => name.startsWith('test') && typeof _proto[name] === 'function'
+                )
             );
+            _proto = _proto.__proto__;
+        }
+
+        return _items;
     }
 
     /**

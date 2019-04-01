@@ -1,7 +1,7 @@
 {
     "name": "@jf/tests",
     "description": "OOP tests system",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "Joaquín Fernández <dev@joaquinfernandez.net>",
     "license": "MIT",
     "main": "index.js",
