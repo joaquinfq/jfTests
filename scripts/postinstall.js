@@ -1,6 +1,6 @@
 const fs      = require('fs');
 const path    = require('path');
-const pkgfile = path.resolve('..', '..', '..', 'package.json');
+const pkgfile = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
 if (fs.existsSync(pkgfile))
 {
     process.on(

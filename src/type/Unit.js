@@ -380,7 +380,7 @@ module.exports = class jfTestsUnit
         {
             _items.push(
                 ...Object.getOwnPropertyNames(_proto).filter(
-                    name => name.startsWith('test') && typeof _proto[name] === 'function'
+                    name => name.startsWith('test') && typeof _proto[name] === 'function' && !_items.includes(name)
                 )
             );
             _proto = _proto.__proto__;
