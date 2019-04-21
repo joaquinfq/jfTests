@@ -259,39 +259,42 @@ module.exports = class jfTestsUnit
     _testInheritance(Class, Super, factory = null)
     {
         const _classname = Class.name;
+        const _supername = Super.name;
         const _sut       = new Class();
         this._assert('ok', _sut instanceof Class);
         if (Super)
         {
-            const _supername = Super.name;
             this._assert('ok', Super.isPrototypeOf(Class), `${_classname} extends ${_supername}`);
-            this._assert('ok', _sut instanceof Super);
+            this._assert('ok', _sut instanceof Super, `${_classname} instanceof ${_supername}`);
         }
         if (factory)
         {
-            // Al registrar el nombre en la factoría se suele usar el nombre completo o una parte
-            // que suele ir desde el final hacia al principio así que buscamos esa coincidencia.
-            // Por ejemplo:
-            // jfDataTypeDate      se registra como Date
-            // jfDataTypeDateTime  se registra como DateTime
-            let _sut;
-            const _names = _classname.match(/[A-Z][a-z0-9]+/g);
-            while (_names.length)
+            let _sut = factory.create(_classname);
+            if (!_sut)
             {
-                _sut = factory.create(_names.join(''));
-                if (_sut)
+                // Al registrar el nombre en la factoría se suele usar el nombre completo o una parte
+                // que suele ir desde el final hacia al principio así que buscamos esa coincidencia.
+                // Por ejemplo:
+                // jfDataTypeDate      se registra como Date
+                // jfDataTypeDateTime  se registra como DateTime
+                const _names = _classname.match(/[A-Z][a-z0-9]+/g);
+                while (_names.length)
                 {
-                    break;
-                }
-                else
-                {
-                    _names.shift();
+                    _sut = factory.create(_names.join(''));
+                    if (_sut)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        _names.shift();
+                    }
                 }
             }
-            this._assert('ok', _sut instanceof Class);
+            this._assert('ok', _sut instanceof Class, `factory: instanceof ${_classname}`);
             if (Super)
             {
-                this._assert('ok', _sut instanceof Super);
+                this._assert('ok', _sut instanceof Super, `factory: instanceof ${_supername}`);
             }
         }
     }
